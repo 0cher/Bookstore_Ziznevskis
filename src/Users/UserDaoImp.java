@@ -3,7 +3,6 @@ package Users;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 public class UserDaoImp implements UserDao {
     private static final String URL = "jdbc:postgresql://localhost:5432/HomeWork";
     private static final String useName = "postgres";

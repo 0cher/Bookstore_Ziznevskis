@@ -13,7 +13,6 @@ public class User {
     ArrayList<Book> books;
     public User() {
     }
-
     public User(String name, String email, int age, String password) {
         this.email = email;
         this.password = password;

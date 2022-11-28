@@ -19,7 +19,6 @@ public class Book {
         if (!(o instanceof Book book)) return false;
         return Objects.equals(id, book.id) && Objects.equals(bookAuthor, book.bookAuthor) && Objects.equals(bookName, book.bookName) && Objects.equals(isbn, book.isbn);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(id, bookAuthor, bookName, isbn);

@@ -1,7 +1,6 @@
 package Users;
 
 import java.util.List;
-
 public interface UserDao {
     //CRUD //Create, Read, Update, Delete
     List<User> findAll();

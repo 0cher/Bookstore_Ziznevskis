@@ -3,7 +3,6 @@ package Book;
 import java.util.List;
 
 public interface BookDao {
-
     List<Book> findAll();
     Book createBook(Book book);
     Book findByISBN(String isbn);
