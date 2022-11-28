@@ -1,11 +1,11 @@
-import java.util.Objects;
+package Book;
 
+import java.util.Objects;
 public class Book {
     Long id;
     private String bookAuthor;
     private String bookName;
     private String isbn;
-
     public Book() {
     }
     public Book(String bookAuthor, String bookName, String isbn) {
@@ -59,7 +59,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
+        return "Book.Book{" +
                 "id=" + id +
                 ", bookAuthor='" + bookAuthor + '\'' +
                 ", bookName='" + bookName + '\'' +
