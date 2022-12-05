@@ -1,4 +1,7 @@
-package Users;
+package bookstore.data.dao.impl;
+
+import bookstore.data.dao.UserDao;
+import bookstore.data.entity.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -30,7 +33,7 @@ public class UserDaoImp implements UserDao {
                 user.setPassword(resultSet.getString("password")); ////String password = resultSet.getString("password");
 
                 users.add(user);
-                //System.out.println(user);
+                //System.out.println(main.java.bookstore.user);
                 //System.out.printf("Users: id: %d, email: %s, name: %s, age: %d ,password: %s%n", id,email,name, age,password);
             }
             connection.close();
@@ -99,8 +102,8 @@ public class UserDaoImp implements UserDao {
             user.setId(findByEmail(user.getEmail()).getId());
             check = true;
 //            Statement statementByEmail = connection.createStatement();
-//            ResultSet resultSet = statementByEmail.executeQuery("SELECT * FROM users WHERE email = "+user.getEmail());
-//            user.setId(resultSet.getLong("id"));
+//            ResultSet resultSet = statementByEmail.executeQuery("SELECT * FROM users WHERE email = "+main.java.bookstore.user.getEmail());
+//            main.java.bookstore.user.setId(resultSet.getLong("id"));
 
         }catch (SQLException e){
             e.printStackTrace();

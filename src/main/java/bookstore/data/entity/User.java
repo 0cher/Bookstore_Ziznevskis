@@ -1,4 +1,4 @@
-package Users;
+package bookstore.data.entity;
 
 import java.awt.print.Book;
 import java.util.ArrayList;
@@ -22,19 +22,6 @@ public class User {
     public Long getId() {
         return id;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User users)) return false;
-        return age == users.age && Objects.equals(id, users.id) && Objects.equals(email, users.email) && Objects.equals(password, users.password) && Objects.equals(name, users.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, email, password, name, age);
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -81,6 +68,16 @@ public class User {
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 '}';
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User users)) return false;
+        return age == users.age && Objects.equals(id, users.id) && Objects.equals(email, users.email) && Objects.equals(password, users.password) && Objects.equals(name, users.name);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, password, name, age);
     }
 
 }

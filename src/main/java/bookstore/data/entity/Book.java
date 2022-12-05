@@ -1,4 +1,4 @@
-package Book;
+package bookstore.data.entity;
 
 import java.util.Objects;
 public class Book {
@@ -6,22 +6,14 @@ public class Book {
     private String bookAuthor;
     private String bookName;
     private String isbn;
+    private Money price;
+
     public Book() {
     }
     public Book(String bookAuthor, String bookName, String isbn) {
         this.bookAuthor = bookAuthor;
         this.bookName = bookName;
         this.isbn = isbn;
-    }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Book book)) return false;
-        return Objects.equals(id, book.id) && Objects.equals(bookAuthor, book.bookAuthor) && Objects.equals(bookName, book.bookName) && Objects.equals(isbn, book.isbn);
-    }
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, bookAuthor, bookName, isbn);
     }
 
     public Long getId() {
@@ -64,5 +56,15 @@ public class Book {
                 ", bookName='" + bookName + '\'' +
                 ", isbn='" + isbn + '\'' +
                 '}';
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Book book)) return false;
+        return Objects.equals(id, book.id) && Objects.equals(bookAuthor, book.bookAuthor) && Objects.equals(bookName, book.bookName) && Objects.equals(isbn, book.isbn);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, bookAuthor, bookName, isbn);
     }
 }

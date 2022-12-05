@@ -1,4 +1,8 @@
-package Users;
+package bookstore.data.dao;
+
+
+
+import bookstore.data.entity.User;
 
 import java.util.List;
 public interface UserDao {

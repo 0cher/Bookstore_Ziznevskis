@@ -1,4 +1,7 @@
-package Book;
+package bookstore.data.dao;
+
+
+import bookstore.data.entity.Book;
 
 import java.util.List;
 
@@ -9,6 +12,8 @@ public interface BookDao {
     Book findById(Long id);
     void updateBook(String bookIsbn, Book book);
     boolean deleteBook (String bookIsbn);
+
+    long countAll();
 
 
 }
