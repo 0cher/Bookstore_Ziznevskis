@@ -1,6 +1,9 @@
 package bookstore.data.dao.impl;
+import bookstore.data.connection.PostgresqlDriver;
 import bookstore.data.dao.BookDao;
 import bookstore.data.entity.Book;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,12 +21,16 @@ public class BookDaoImp implements BookDao {
     private static final String DELETE_ByISBN = "DELETE FROM books WHERE isbn = ?";
     private static final String COUNT_ALL_SQL = "SELECT COUNT(*) FROM books";
 
+    private final static Logger log = LogManager.getLogger(BookDaoImp.class);
+
+
    // private final DateSource dateSource;
 
 
     @Override
     public List<Book> findAll() {
         List<Book> books = new ArrayList<>();
+        PostgresqlDriver.postgresqlDriver();
         try (Connection connection = DriverManager.getConnection(URL,useName, PASSWORD)) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(FIND_ALL);
@@ -38,6 +45,7 @@ public class BookDaoImp implements BookDao {
     @Override
     public Book createBook(Book book) {
         boolean check = false;
+        PostgresqlDriver.postgresqlDriver();
         if (findByISBN(book.getIsbn())==null){
         try (Connection connection = DriverManager.getConnection(URL,useName, PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(CREATE_BOOK, Statement.RETURN_GENERATED_KEYS);
@@ -61,6 +69,9 @@ public class BookDaoImp implements BookDao {
     @Override
     public Book findByISBN(String isbn) {
         Book book = null;
+
+        PostgresqlDriver.postgresqlDriver();
+
         try (Connection connection = DriverManager.getConnection(URL,useName, PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(FIND_ByIsbn);
             statement.setString(1,isbn);
@@ -72,11 +83,13 @@ public class BookDaoImp implements BookDao {
         }catch (SQLException e){
             throw  new RuntimeException(e);
         }
+
         return book;
     }
     @Override
     public Book findById(Long id) {
         Book book = null;
+        PostgresqlDriver.postgresqlDriver();
         try (Connection connection = DriverManager.getConnection(URL,useName, PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(FIND_ById);
             statement.setLong(1,id);
@@ -87,12 +100,15 @@ public class BookDaoImp implements BookDao {
             }
         }catch (SQLException e){
             throw  new RuntimeException(e);
+        }if (book==null){
+
         }
         return book;
     }
     @Override
     public void updateBook(String bookIsbn, Book book) {
         if (findByISBN(bookIsbn)!=null&&Objects.equals(bookIsbn, book.getIsbn())){
+            PostgresqlDriver.postgresqlDriver();
             try (Connection connection = DriverManager.getConnection(URL,useName, PASSWORD)) {
                 PreparedStatement statement = connection.prepareStatement(UPDATE_BOOK);
                 setResult(book, statement);
@@ -103,6 +119,7 @@ public class BookDaoImp implements BookDao {
             }
         }
         if (findByISBN(bookIsbn)!=null&&!Objects.equals(bookIsbn, book.getIsbn())&&findByISBN(book.getIsbn())==null){
+            PostgresqlDriver.postgresqlDriver();
             try (Connection connection = DriverManager.getConnection(URL,useName, PASSWORD)) {
                 PreparedStatement statement = connection.prepareStatement(UPDATE_BOOK);
                 setResult(book, statement);
@@ -116,6 +133,7 @@ public class BookDaoImp implements BookDao {
     @Override
     public boolean deleteBook(String bookIsbn) {
         boolean remove = false;
+        PostgresqlDriver.postgresqlDriver();
         if (findByISBN(bookIsbn)!=null){
             try (Connection connection = DriverManager.getConnection(URL,useName, PASSWORD);) {
                 PreparedStatement statement = connection.prepareStatement(DELETE_ByISBN);
@@ -130,10 +148,8 @@ public class BookDaoImp implements BookDao {
     }
     @Override
     public long countAll() {
-       
         return 0;
     }
-
     private Book getResult(ResultSet resultSet) throws SQLException{
         Book book = new Book();
         book.setBookAuthor(resultSet.getString("bookAuthor"));
@@ -142,11 +158,9 @@ public class BookDaoImp implements BookDao {
         book.setId(resultSet.getLong("id"));
         return book;
     }
-
     private void setResult(Book book, PreparedStatement statement) throws SQLException {
         statement.setString(1,book.getBookAuthor());
         statement.setString(2,book.getBookName());
         statement.setString(3,book.getIsbn());
     }
-
 }

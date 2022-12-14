@@ -32,7 +32,7 @@ public class Main {
 //        books.forEach(System.out::println);
 
         do {
-            System.out.println("1-По0казать список книг");
+            System.out.println("1-Показать список книг");
             System.out.println("2-Показать список пользователей");
             System.out.println("3-Найти книгу по ISBN");
             System.out.println("4-Найти пользователя по ID");
